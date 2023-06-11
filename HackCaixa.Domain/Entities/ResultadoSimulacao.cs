@@ -1,17 +1,30 @@
-﻿using HackCaixa.Application.DTOs;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HackCaixa.Application.Helpers
+namespace HackCaixa.Domain.Entities
 {
-    public static class Calculos
+    public class ResultadoSimulacao
     {
-        public static List<ParcelaDTO> CalcularSimulacaoSAC(decimal valorDesejado, int prazo, decimal taxaJuros)
+        public string Tipo { get; set; }
+        public List<Parcela> Parcelas { get; set; }
+        public ResultadoSimulacao(decimal valorDesejado, int prazo, string tipoSimulacao, decimal taxaJuros)
         {
-            var parcelas = new List<ParcelaDTO>();
+                //Parcelas = new List<Parcela>();
+
+                Tipo = tipoSimulacao;
+                if (tipoSimulacao == "SAC")
+                    Parcelas = CalcularSimulacaoSAC(valorDesejado, prazo, taxaJuros);
+                else
+                    Parcelas = CalcularSimulacaoPrice(valorDesejado, prazo, taxaJuros);
+            
+        }
+
+        private List<Parcela> CalcularSimulacaoSAC(decimal valorDesejado, int prazo, decimal taxaJuros)
+        {
+            var parcelas = new List<Parcela>();
             var amortizacao = valorDesejado / prazo;
             decimal saldoDevedor = valorDesejado;
 
@@ -20,7 +33,7 @@ namespace HackCaixa.Application.Helpers
                 var juros = saldoDevedor * taxaJuros;
                 var prestacao = amortizacao + juros;
 
-                var parcela = new ParcelaDTO
+                var parcela = new Parcela
                 {
                     Numero = i,
                     ValorAmortizacao = amortizacao,
@@ -35,18 +48,18 @@ namespace HackCaixa.Application.Helpers
             return parcelas;
         }
 
-        public static List<ParcelaDTO> CalcularSimulacaoPrice(decimal valorDesejado, int prazo, decimal taxaJuros)
+        private List<Parcela> CalcularSimulacaoPrice(decimal valorDesejado, int prazo, decimal taxaJuros)
         {
-           
-            var parcelas = new List<ParcelaDTO>();
-            var prestacao = (valorDesejado * taxaJuros) / (1- (decimal)Math.Pow((1+ (double)taxaJuros), -1*prazo));
+
+            var parcelas = new List<Parcela>();
+            var prestacao = (valorDesejado * taxaJuros) / (1 - (decimal)Math.Pow((1 + (double)taxaJuros), -1 * prazo));
 
             for (int i = 1; i <= prazo; i++)
             {
                 var juros = valorDesejado * taxaJuros;
                 var amortizacao = prestacao - juros;
 
-                var parcela = new ParcelaDTO
+                var parcela = new Parcela
                 {
                     Numero = i,
                     ValorAmortizacao = amortizacao,
@@ -62,5 +75,7 @@ namespace HackCaixa.Application.Helpers
 
 
         }
+
+
     }
 }

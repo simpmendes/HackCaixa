@@ -9,6 +9,14 @@ namespace HackCaixa.Application.Helpers
         public ProdutosProfile() 
         {
             CreateMap<Produto, ProdutoDto>().ReverseMap();
+            CreateMap<Parcela, ParcelaDTO>().ReverseMap();
+            CreateMap<ResultadoSimulacao, ResultadoSimulacaoDTO>()
+            .ForMember(dest => dest.Parcelas, opt => opt.MapFrom(src => src.Parcelas));
+
+            CreateMap<Simulacao, SimulacaoDTO>()
+                .ForMember(dest => dest.CodigoProduto, opt => opt.MapFrom(src => src.Produto.CoProduto))
+                .ForMember(dest => dest.DescricaoProduto, opt => opt.MapFrom(src => src.Produto.NoProduto))
+                .ForMember(dest => dest.TaxaJuros, opt => opt.MapFrom(src => src.Produto.PcTaxaJuros));
         }
     }
 }

@@ -41,12 +41,12 @@ namespace HackCaixaAPI.Controllers
             try
             {
                 var simulacao = await _produtosService.RealizarSimulacao(model.valorDesejado, model.prazo);
-                if (simulacao == null) return NoContent();
+                if (simulacao == null) return BadRequest(new { message = "Não há produtos disponíveis para os parametros informados." });
                 return Ok(simulacao);
             }
             catch (Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar consultar produtos. Erro: {ex.Message}");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar realizar Simulação. Erro: {ex.Message}");
             }
             
         }

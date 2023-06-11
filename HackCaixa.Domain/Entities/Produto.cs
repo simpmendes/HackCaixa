@@ -10,4 +10,5 @@
         public decimal VrMinimo { get; set; }
         public decimal? VrMaximo { get; set; }
     }
+   
 }

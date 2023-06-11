@@ -1,9 +1,9 @@
 
 using HackCaixa.Application.Interfaces;
 using HackCaixa.Application.Services;
+using HackCaixa.Domain.Interfaces;
 using HackCaixa.Infra.Data;
 using HackCaixa.Infra.Data.Context;
-using HackCaixa.Infra.Data.Interfaces;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 

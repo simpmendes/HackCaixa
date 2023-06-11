@@ -3,8 +3,8 @@ using HackCaixa.Application.DTOs;
 using HackCaixa.Application.Helpers;
 using HackCaixa.Application.Interfaces;
 using HackCaixa.Domain.Entities;
+using HackCaixa.Domain.Interfaces;
 using HackCaixa.Infra.Data.Context;
-using HackCaixa.Infra.Data.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -34,43 +34,21 @@ namespace HackCaixa.Application.Services
         public async Task<SimulacaoDTO> RealizarSimulacao(decimal valorDesejado, int prazo)
         {
             
-            var produtosFiltrados =  _mapper.Map<IList<ProdutoDto>>(await _produtoRepository.FiltrarProdutosAsync(valorDesejado, prazo));
+            var produtoFiltrado =  await _produtoRepository.FiltrarProdutosAsync(valorDesejado, prazo);
 
-            // Realizar simulação para cada produto filtrado
-            var resultadosSimulacao = new List<ResultadoSimulacaoDTO>();
-            foreach (var produto in produtosFiltrados)
+            if (produtoFiltrado != null)
             {
-                var resultadoSAC = Calculos.CalcularSimulacaoSAC(valorDesejado, prazo, produto.PcTaxaJuros);
-                var resultadoPrice = Calculos.CalcularSimulacaoPrice(valorDesejado, prazo, produto.PcTaxaJuros);
+                // Realizar simulação 
+                var resultadosSimulacao = new List<ResultadoSimulacaoDTO>();
 
-                var resultadoSimulacao = new ResultadoSimulacaoDTO
-                {
-                    Tipo = "SAC",
-                    Parcelas = resultadoSAC
-                };
-                resultadosSimulacao.Add(resultadoSimulacao);
+                var simulacao = new Simulacao(produtoFiltrado, valorDesejado, prazo);
 
-                resultadoSimulacao = new ResultadoSimulacaoDTO
-                {
-                    Tipo = "Price",
-                    Parcelas = resultadoPrice
-                };
-                resultadosSimulacao.Add(resultadoSimulacao);
+                return _mapper.Map<SimulacaoDTO>(simulacao);
             }
-
-            var simulacao = new SimulacaoDTO
-            {
-                CodigoProduto = produtosFiltrados.FirstOrDefault()?.CoProduto ?? 0,
-                DescricaoProduto = produtosFiltrados.FirstOrDefault()?.NoProduto,
-                TaxaJuros = produtosFiltrados.FirstOrDefault()?.PcTaxaJuros ?? 0,
-                ResultadoSimulacao = resultadosSimulacao
-            };
-
-            return simulacao;
+            else
+                return null;
+            
         }
-
-       
-
 
     }
 }

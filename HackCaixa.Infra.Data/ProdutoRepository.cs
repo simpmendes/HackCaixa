@@ -1,6 +1,6 @@
 ﻿using HackCaixa.Domain.Entities;
+using HackCaixa.Domain.Interfaces;
 using HackCaixa.Infra.Data.Context;
-using HackCaixa.Infra.Data.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -24,11 +24,11 @@ namespace HackCaixa.Infra.Data
             return await _context.Produtos.ToListAsync();
         }
 
-        public async Task<IList<Produto>> FiltrarProdutosAsync(decimal valorDesejado, int prazo)
+        public async Task<Produto> FiltrarProdutosAsync(decimal valorDesejado, int prazo)
         {
             return await _context.Produtos.Where(p => valorDesejado >= p.VrMinimo &&
                                                 (p.VrMaximo == null || valorDesejado <= p.VrMaximo) &&
-                                                 prazo >= p.NuMinimoMeses && (p.NuMaximoMeses == null || prazo <= p.NuMaximoMeses)).ToListAsync();
+                                                 prazo >= p.NuMinimoMeses && (p.NuMaximoMeses == null || prazo <= p.NuMaximoMeses)).FirstOrDefaultAsync();
             
         }
 

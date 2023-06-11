@@ -1,6 +1,6 @@
 ﻿using HackCaixa.Domain.Entities;
+using HackCaixa.Domain.Interfaces;
 using HackCaixa.Infra.Data.Context;
-using HackCaixa.Infra.Data.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
