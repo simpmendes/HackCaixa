@@ -14,8 +14,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HackCaixa.Infra.Data", "Hac
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HackCaixa.Application", "HackCaixa.Application\HackCaixa.Application.csproj", "{D4BC09C2-BB0F-42BB-8740-40F2AC2D5B02}"
 	ProjectSection(ProjectDependencies) = postProject
+		{002D55D0-D507-41C8-B244-E8DECCCC1D7A} = {002D55D0-D507-41C8-B244-E8DECCCC1D7A}
 		{2F0F2404-DE19-4F29-AF1F-4DEC92206488} = {2F0F2404-DE19-4F29-AF1F-4DEC92206488}
 		{B9E84E60-99B9-4A6B-98D4-72B6B99BC8E8} = {B9E84E60-99B9-4A6B-98D4-72B6B99BC8E8}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackCaixa.Infra.Services", "HackCaixa.Infra.Services\HackCaixa.Infra.Services.csproj", "{002D55D0-D507-41C8-B244-E8DECCCC1D7A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2F0F2404-DE19-4F29-AF1F-4DEC92206488} = {2F0F2404-DE19-4F29-AF1F-4DEC92206488}
 	EndProjectSection
 EndProject
 Global
@@ -40,6 +46,10 @@ Global
 		{D4BC09C2-BB0F-42BB-8740-40F2AC2D5B02}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4BC09C2-BB0F-42BB-8740-40F2AC2D5B02}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4BC09C2-BB0F-42BB-8740-40F2AC2D5B02}.Release|Any CPU.Build.0 = Release|Any CPU
+		{002D55D0-D507-41C8-B244-E8DECCCC1D7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{002D55D0-D507-41C8-B244-E8DECCCC1D7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{002D55D0-D507-41C8-B244-E8DECCCC1D7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{002D55D0-D507-41C8-B244-E8DECCCC1D7A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

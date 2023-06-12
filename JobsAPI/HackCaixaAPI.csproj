@@ -28,6 +28,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\HackCaixa.Application\HackCaixa.Application.csproj" />
+    <ProjectReference Include="..\HackCaixa.Infra.Services\HackCaixa.Infra.Services.csproj" />
   </ItemGroup>
 
 </Project>

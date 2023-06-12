@@ -9,7 +9,6 @@ namespace HackCaixa.Domain.Interfaces
 {
     public interface IProdutoRepository
     {
-        Task<IList<Produto>> GetAllProdutosAsync();
         Task<Produto> FiltrarProdutosAsync(decimal valorDesejado, int prazo);
     }
 }

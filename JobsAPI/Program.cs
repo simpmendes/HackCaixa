@@ -4,6 +4,7 @@ using HackCaixa.Application.Services;
 using HackCaixa.Domain.Interfaces;
 using HackCaixa.Infra.Data;
 using HackCaixa.Infra.Data.Context;
+using HackCaixa.Infra.Services;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 
@@ -30,6 +31,14 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddSingleton<IEventHubIntegration>(provider =>
+{
+    // Configure os dados de conexão e o nome do Event Hub
+    string connectionString = "Endpoint=sb://eventhack.servicebus.windows.net/;SharedAccessKeyName=hack;SharedAccessKey=HeHeVaVqyVkntO2FnjQcs2Ilh/4MUDo4y+AEhKp8z+g=;EntityPath=simulacoes";
+    
+
+    return new EventHubIntegration(connectionString);
+});
 
 var app = builder.Build();
 

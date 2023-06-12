@@ -14,9 +14,11 @@ namespace HackCaixa.Domain.Entities
         public Simulacao(Produto produto, decimal valorDesejado, int prazo)
         {
             Produto = produto;
-            var resultadoSimulacao= new List<ResultadoSimulacao>();
-            resultadoSimulacao.Add(new ResultadoSimulacao(valorDesejado, prazo, "SAC", produto.PcTaxaJuros));
-            resultadoSimulacao.Add(new ResultadoSimulacao(valorDesejado, prazo, "PRICE", produto.PcTaxaJuros));
+            var resultadoSimulacao = new List<ResultadoSimulacao>
+            {
+                new ResultadoSimulacao(valorDesejado, prazo, "SAC", produto.PcTaxaJuros),
+                new ResultadoSimulacao(valorDesejado, prazo, "PRICE", produto.PcTaxaJuros)
+            };
             ResultadoSimulacao =resultadoSimulacao;
         }
 

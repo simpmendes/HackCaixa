@@ -9,7 +9,6 @@ namespace HackCaixa.Application.Interfaces
 {
     public interface IProdutoService
     {
-        Task<IList<ProdutoDto>> GetAllProdutosAsync();
         Task<SimulacaoDTO> RealizarSimulacao(decimal valorDesejado, int prazo);
     }
 }

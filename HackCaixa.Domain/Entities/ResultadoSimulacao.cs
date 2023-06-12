@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,13 +26,13 @@ namespace HackCaixa.Domain.Entities
         private List<Parcela> CalcularSimulacaoSAC(decimal valorDesejado, int prazo, decimal taxaJuros)
         {
             var parcelas = new List<Parcela>();
-            var amortizacao = valorDesejado / prazo;
+            var amortizacao = Math.Round(valorDesejado / prazo, 2);
             decimal saldoDevedor = valorDesejado;
 
             for (int i = 1; i <= prazo; i++)
             {
-                var juros = saldoDevedor * taxaJuros;
-                var prestacao = amortizacao + juros;
+                var juros = Math.Round(saldoDevedor * taxaJuros, 2);
+                var prestacao = Math.Round(amortizacao + juros, 2);
 
                 var parcela = new Parcela
                 {
@@ -52,12 +53,12 @@ namespace HackCaixa.Domain.Entities
         {
 
             var parcelas = new List<Parcela>();
-            var prestacao = (valorDesejado * taxaJuros) / (1 - (decimal)Math.Pow((1 + (double)taxaJuros), -1 * prazo));
+            var prestacao = Math.Round((valorDesejado * taxaJuros) / (1 - (decimal)Math.Pow((1 + (double)taxaJuros), -1 * prazo)), 2);
 
             for (int i = 1; i <= prazo; i++)
             {
-                var juros = valorDesejado * taxaJuros;
-                var amortizacao = prestacao - juros;
+                var juros = Math.Round(valorDesejado * taxaJuros, 2);
+                var amortizacao = Math.Round(prestacao - juros, 2);
 
                 var parcela = new Parcela
                 {

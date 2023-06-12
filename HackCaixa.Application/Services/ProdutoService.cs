@@ -25,11 +25,6 @@ namespace HackCaixa.Application.Services
             _produtoRepository = produtoRepository;
         }
 
-        public async Task<IList<ProdutoDto>> GetAllProdutosAsync()
-        {
-            var produtos = await _produtoRepository.GetAllProdutosAsync();
-            return _mapper.Map<IList<ProdutoDto>>(produtos);
-        }
         
         public async Task<SimulacaoDTO> RealizarSimulacao(decimal valorDesejado, int prazo)
         {
@@ -39,7 +34,6 @@ namespace HackCaixa.Application.Services
             if (produtoFiltrado != null)
             {
                 // Realizar simulação 
-                var resultadosSimulacao = new List<ResultadoSimulacaoDTO>();
 
                 var simulacao = new Simulacao(produtoFiltrado, valorDesejado, prazo);
 
