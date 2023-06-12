@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33110.190
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HackCaixaAPI", "JobsAPI\HackCaixaAPI.csproj", "{F0A17598-F703-45B4-B19C-D6F454CBF55D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HackCaixaAPI", "HackCaixaAPI\HackCaixaAPI.csproj", "{F0A17598-F703-45B4-B19C-D6F454CBF55D}"
 	ProjectSection(ProjectDependencies) = postProject
 		{D4BC09C2-BB0F-42BB-8740-40F2AC2D5B02} = {D4BC09C2-BB0F-42BB-8740-40F2AC2D5B02}
 	EndProjectSection

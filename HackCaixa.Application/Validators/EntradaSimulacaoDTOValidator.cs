@@ -3,7 +3,7 @@ using HackCaixa.Application.DTOs;
 
 namespace HackCaixa.Application.Validators
 {
-    public class EntradaSimulacaoDTOValidator: AbstractValidator<EntradaSimulacaoDTO>
+    public class EntradaSimulacaoDTOValidator : AbstractValidator<EntradaSimulacaoDTO>
     {
         public EntradaSimulacaoDTOValidator()
         {
@@ -17,6 +17,6 @@ namespace HackCaixa.Application.Validators
            .Must(valor => int.TryParse(valor.ToString(), out _))
            .WithMessage("O valor do prazo deve ser um número inteiro.");
         }
-
+    }
       
 }
