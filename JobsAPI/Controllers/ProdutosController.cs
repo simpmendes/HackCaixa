@@ -28,6 +28,14 @@ namespace HackCaixaAPI.Controllers
         {
             try
             {
+                if(!ModelState.IsValid) 
+                {
+                    var messages = ModelState
+                        .SelectMany(ms => ms.Value.Errors)
+                        .Select(e => e.ErrorMessage)
+                        .ToList();
+                    return BadRequest(messages);
+                }
                 var simulacao = await _produtosService.RealizarSimulacao(model.valorDesejado, model.prazo);
                 if (simulacao == null) return BadRequest(new { message = "Não há produtos disponíveis para os parametros informados." });
                 await _eventHubIntegration.SendMessageAsync(simulacao);

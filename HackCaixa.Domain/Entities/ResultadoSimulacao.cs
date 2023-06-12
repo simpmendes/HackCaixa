@@ -26,26 +26,30 @@ namespace HackCaixa.Domain.Entities
         private List<Parcela> CalcularSimulacaoSAC(decimal valorDesejado, int prazo, decimal taxaJuros)
         {
             var parcelas = new List<Parcela>();
-            var amortizacao = Math.Round(valorDesejado / prazo, 2);
-            decimal saldoDevedor = valorDesejado;
-
-            for (int i = 1; i <= prazo; i++)
+            if (prazo > 0)
             {
-                var juros = Math.Round(saldoDevedor * taxaJuros, 2);
-                var prestacao = Math.Round(amortizacao + juros, 2);
+                var amortizacao = Math.Round(valorDesejado / prazo, 2);
+                decimal saldoDevedor = valorDesejado;
 
-                var parcela = new Parcela
+                for (int i = 1; i <= prazo; i++)
                 {
-                    Numero = i,
-                    ValorAmortizacao = amortizacao,
-                    ValorJuros = juros,
-                    ValorPrestacao = prestacao
-                };
-                parcelas.Add(parcela);
+                    var juros = Math.Round(saldoDevedor * taxaJuros, 2);
+                    var prestacao = Math.Round(amortizacao + juros, 2);
 
-                saldoDevedor -= amortizacao;
+                    var parcela = new Parcela
+                    {
+                        Numero = i,
+                        ValorAmortizacao = amortizacao,
+                        ValorJuros = juros,
+                        ValorPrestacao = prestacao
+                    };
+                    parcelas.Add(parcela);
+
+                    saldoDevedor -= amortizacao;
+                }
+
+                
             }
-
             return parcelas;
         }
 
@@ -53,27 +57,30 @@ namespace HackCaixa.Domain.Entities
         {
 
             var parcelas = new List<Parcela>();
-            var prestacao = Math.Round((valorDesejado * taxaJuros) / (1 - (decimal)Math.Pow((1 + (double)taxaJuros), -1 * prazo)), 2);
-
-            for (int i = 1; i <= prazo; i++)
+            if (prazo > 0)
             {
-                var juros = Math.Round(valorDesejado * taxaJuros, 2);
-                var amortizacao = Math.Round(prestacao - juros, 2);
+                var prestacao = Math.Round((valorDesejado * taxaJuros) / (1 - (decimal)Math.Pow((1 + (double)taxaJuros), -1 * prazo)), 2);
 
-                var parcela = new Parcela
+                for (int i = 1; i <= prazo; i++)
                 {
-                    Numero = i,
-                    ValorAmortizacao = amortizacao,
-                    ValorJuros = juros,
-                    ValorPrestacao = prestacao
-                };
-                parcelas.Add(parcela);
+                    var juros = Math.Round(valorDesejado * taxaJuros, 2);
+                    var amortizacao = Math.Round(prestacao - juros, 2);
 
-                valorDesejado -= amortizacao;
+                    var parcela = new Parcela
+                    {
+                        Numero = i,
+                        ValorAmortizacao = amortizacao,
+                        ValorJuros = juros,
+                        ValorPrestacao = prestacao
+                    };
+                    parcelas.Add(parcela);
+
+                    valorDesejado -= amortizacao;
+                }
+
             }
 
             return parcelas;
-
 
         }
 
